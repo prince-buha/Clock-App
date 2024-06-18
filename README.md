@@ -13,21 +13,21 @@ Prince Buha [![LinkedIn Follow][(https://www.linkedin.com/in/prince-buha-9674a22
 📸 Screenshots
 
 ### Analog Clock
-<img src="https://github.com/prince-buha/clock_app/assets/150029430/efc65dc9-6d69-4b63-a7ea-77e20751fad5" width="250">
+<img src="https://github.com/prince-buha/Clock-App/assets/150029430/a7cfc403-6e91-42f0-b210-82114dd6979e" width="250">
 
 ### Digital Clock
-<img src="https://github.com/prince-buha/clock_app/assets/150029430/e6c20145-4948-40f9-aadc-9737c6761638" width="250">
+<img src="https://github.com/prince-buha/Clock-App/assets/150029430/1555d5b3-4617-4c78-b378-4fe986546b75" width="250">
 
 ### Strap Watch
-<img src="https://github.com/prince-buha/clock_app/assets/150029430/c21e382f-290c-4109-b5f4-523c7c4d8f9d" width="250">
+<img src="https://github.com/prince-buha/Clock-App/assets/150029430/536611fe-2601-46bc-b9d1-e6cc23095488" width="250">
 
 ### Timer / Stopwatch
 <img src="" width="250">
 
 ### App Video
 
+"https://github.com/prince-buha/Clock-App/assets/150029430/1b2db7a7-23bc-4719-acfb-ba03c2762cc3"
 
-https://github.com/prince-buha/clock_app/assets/150029430/77b47d98-3793-4375-97e0-1567cbc87307
 
 
 
