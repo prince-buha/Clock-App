@@ -1,16 +1,36 @@
-# clock_app
+📅 Flutter Clock App
+A beautifully designed and fully functional clock app built using Flutter. This app features multiple clock designs, alarms, timers, and a world clock feature, making it the perfect companion for managing your time effectively.
 
-A new Flutter project.
+🚀 Features
+Digital Clock: Modern Digital Clock with Date and Time
+Analog Clock: Classic styled Analog Clock
+Timers: Use countdown timers for various tasks.
+Strap Watch: New Strap styled watch
 
-## Getting Started
+Prince Buha [![LinkedIn Follow][(https://www.linkedin.com/in/prince-buha-9674a22b2/)]
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+📸 Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Analog Clock
+<img src="https://github.com/prince-buha/clock_app/assets/150029430/efc65dc9-6d69-4b63-a7ea-77e20751fad5" width="250">
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Digital Clock
+<img src="https://github.com/prince-buha/clock_app/assets/150029430/e6c20145-4948-40f9-aadc-9737c6761638" width="250">
+
+### Strap Watch
+<img src="https://github.com/prince-buha/clock_app/assets/150029430/c21e382f-290c-4109-b5f4-523c7c4d8f9d" width="250">
+
+### Timer / Stopwatch
+<img src="" width="250">
+
+### App Video
+
+
+https://github.com/prince-buha/clock_app/assets/150029430/77b47d98-3793-4375-97e0-1567cbc87307
+
+
+
+
+
+
