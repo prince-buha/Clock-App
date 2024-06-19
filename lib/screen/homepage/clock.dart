@@ -11,14 +11,42 @@ class DigitalWatch extends StatefulWidget {
 }
 
 class _DigitalWatchState extends State<DigitalWatch> {
+  int timerHour = 0;
+  int timerMinute = 0;
+  int timerSecond = 0;
+
   int hour = 0;
   int minute = 0;
-  int second = 0;
+  int second= 0;
 
   bool isDigital = true;
   bool isAnalog = false;
   bool isstop = false;
   bool istimer = false;
+
+  Future<void> timerWatch() async {
+    istimer = true;
+    await Future.delayed(const Duration(milliseconds: 50), () {
+      if (istimer) {
+        timerSecond++;
+      }
+      if (timerSecond > 59) {
+        timerSecond = 0;
+        timerMinute++;
+      }
+      if (timerMinute > 59) {
+        timerMinute = 0;
+        timerHour++;
+      }
+      if (timerHour > 12) {
+        timerHour = 0;
+      }
+      setState(() {});
+    });
+    if (istimer) {
+      timerWatch();
+    }
+  }
 
   myClock() {
     Future.delayed(
@@ -38,36 +66,17 @@ class _DigitalWatchState extends State<DigitalWatch> {
     myClock();
     super.initState();
   }
-  Future<void> timerWatch() async {
-    istimer = true;
-    await Future.delayed(const Duration(milliseconds: 50), () {
-      if (istimer) {
-        second++;
-      }
-      if (second > 59) {
-        second = 0;
-        minute++;
-      }
-      if (minute > 59) {
-        minute = 0;
-        hour++;
-      }
-      if (hour > 12) {
-        hour = 0;
-      }
-      setState(() {});
-    });
-    if (istimer) {
-      timerWatch();
-    }
-  }
 
   List timerWatchHist = [];
+  int lapNumber = 1;
+
+
 
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.sizeOf(context).height;
     double w = MediaQuery.sizeOf(context).width;
+    TextScaler textScaler = MediaQuery.textScalerOf(context);
     Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         hour = DateTime.now().hour;
@@ -88,7 +97,6 @@ class _DigitalWatchState extends State<DigitalWatch> {
         ),
         centerTitle: true,
       ),
-
       drawer: Drawer(
         child: Column(
           children: <Widget>[
@@ -137,7 +145,7 @@ class _DigitalWatchState extends State<DigitalWatch> {
                 activeColor: Colors.purple,
                 value: isstop,
                 onChanged: (val) {
-                  isstop  = val;
+                  isstop = val;
                   setState(() {});
                 },
               ),
@@ -149,7 +157,7 @@ class _DigitalWatchState extends State<DigitalWatch> {
                 activeColor: Colors.purple,
                 value: istimer,
                 onChanged: (val) {
-                  istimer  = val;
+                  istimer = val;
                   setState(() {});
                 },
               ),
@@ -211,8 +219,7 @@ class _DigitalWatchState extends State<DigitalWatch> {
                           ),
                           const Text(
                             ":",
-                            style: TextStyle(
-                                fontSize: 45, color: Colors.white),
+                            style: TextStyle(fontSize: 45, color: Colors.white),
                           ),
                           const SizedBox(
                             height: 15,
@@ -228,9 +235,7 @@ class _DigitalWatchState extends State<DigitalWatch> {
                               ),
                               child: Center(
                                 child: Text(
-                                  minute
-                                      .toString()
-                                      .padLeft(2, '0'),
+                                  minute.toString().padLeft(2, '0'),
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 35,
@@ -308,16 +313,16 @@ class _DigitalWatchState extends State<DigitalWatch> {
                 children: [
                   ...List.generate(
                     60,
-                        (index) => Transform.rotate(
+                    (index) => Transform.rotate(
                       angle: index * (pi * 2) / 60,
                       child: Divider(
-                        color: (index %5 == 0) ? Colors.blueGrey:Colors.white54,
-                        thickness: (index %5 == 0) ? 4 :2,
-                        endIndent: (index %5 == 0)  ? w*0.9 :w * 0.97,
+                        color:
+                            (index % 5 == 0) ? Colors.blueGrey : Colors.white54,
+                        thickness: (index % 5 == 0) ? 4 : 2,
+                        endIndent: (index % 5 == 0) ? w * 0.9 : w * 0.97,
                       ),
                     ),
                   ),
-
 
                   // second
                   Transform.rotate(
@@ -336,7 +341,7 @@ class _DigitalWatchState extends State<DigitalWatch> {
                   Transform.rotate(
                     angle: pi / 2,
                     child: Transform.rotate(
-                      angle: minute * (pi * 2) / 60 ,
+                      angle: minute * (pi * 2) / 60,
                       child: Divider(
                         thickness: 4,
                         color: Colors.white,
@@ -350,7 +355,7 @@ class _DigitalWatchState extends State<DigitalWatch> {
                   Transform.rotate(
                     angle: pi / 2,
                     child: Transform.rotate(
-                      angle: (hour % 12 + (minute / 60)) * (pi * 2) / 12 ,
+                      angle: (hour % 12 + (minute / 60)) * (pi * 2) / 12,
                       child: Divider(
                         thickness: 6,
                         color: Colors.white,
@@ -371,56 +376,219 @@ class _DigitalWatchState extends State<DigitalWatch> {
 
             Visibility(
               visible: isstop,
-
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                    Transform.scale(
-                      scale: 8,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 1.5,
-                        value: second / 60,
-                        color: Colors.red.shade400,
-                      ),
+                  Transform.scale(
+                    scale: 8,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                      value: second / 60,
+                      color: Colors.red.shade400,
                     ),
-                    Transform.scale(
-                      scale: 7,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 1.5,
-                        value: minute / 60,
-                        color: Colors.yellow.shade900,
-                      ),
+                  ),
+                  Transform.scale(
+                    scale: 7,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                      value: minute / 60,
+                      color: Colors.yellow.shade900,
                     ),
-                    Transform.scale(
-                      scale: 6,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 1.5,
-                        value: (hour % 12 + (minute / 60)) /12,
-                        color: Colors.white,
-                      ),
+                  ),
+                  Transform.scale(
+                    scale: 6,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                      value: (hour % 12 + (minute / 60)) / 12,
+                      color: Colors.white,
                     ),
-                    Text(
-                      "${hour.toString().padLeft(2, '0')} : ${minute.toString().padLeft(2, '0')} : ${second.toString().padLeft(2, '0')} ",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
-
+                  ),
+                  Text(
+                    "${hour.toString().padLeft(2, '0')} : ${minute.toString().padLeft(2, '0')} : ${second.toString().padLeft(2, '0')} ",
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
               ),
             ),
 
+            Visibility(
+              visible: istimer,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 50,
+                    width: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: w,
+                      height: h * 0.2,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 4,
+                          color: Colors.orange.shade500,
+                        ),
 
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Container(
+                                height: 60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                  color: Colors.orange.shade300,
+                                  borderRadius: BorderRadius.circular(20)
+                                ),
 
+                                alignment: Alignment.center,
+                                child: Text(
+                                  timerHour.toString().padLeft(2, '0'),
+                                  style: TextStyle(fontSize: textScaler.scale(35),
+                                  color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                ":",
+                                style: TextStyle(
+                                  fontSize: textScaler.scale(40),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                    color: Colors.orange.shade300,
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                                child: Text(
+                                  timerMinute.toString().padLeft(2, '0'),
+                                  style: TextStyle(
+                                    fontSize: textScaler.scale(35),
+                                    color: Colors.white
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                ":",
+                                style: TextStyle(
+                                  fontSize: textScaler.scale(40),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                    color: Colors.orange.shade300,
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                                child: Text(
+                                  timerSecond.toString().padLeft(2, '0'),
+                                  style: TextStyle(fontSize: textScaler.scale(35),color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: h * 0.03),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          if (!istimer) {
+                            timerWatch();
+                          }
+                          setState(() {});
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              Colors.orange.shade300,
+                            )),
+                        child: const Icon(Icons.play_arrow,color: Colors.white,),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          istimer = false;
+                          timerWatchHist.add({
+                            'hour': timerHour,
+                            'minute': timerMinute,
+                            'second': timerSecond,
+                          });
+                          setState(() {});
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                               Colors.orange.shade300
+                            )),
+                        child: const Icon(Icons.pause,color: Colors.white,),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: h * 0.01,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      hour = minute = second = 0;
+                      istimer = false;
+                      timerWatchHist = [];
+                      setState(() {});
+                    },
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.orange.shade300,
+                        )),
+                    child: const Icon(Icons.restart_alt,color: Colors.white,),
+                  ),
+                  SizedBox(
+                    height: h * 0.01,
+                  ),
 
-
-
-
-
-
-
+                ],
+              ),
+            )
           ],
         ),
       ),
