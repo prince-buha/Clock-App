@@ -22,7 +22,7 @@ Prince Buha [![LinkedIn Follow][(https://www.linkedin.com/in/prince-buha-9674a22
 <img src="https://github.com/prince-buha/Clock-App/assets/150029430/536611fe-2601-46bc-b9d1-e6cc23095488" width="250">
 
 ### Timer / Stopwatch
-<img src="" width="250">
+<img src="https://github.com/prince-buha/Clock-App/assets/150029430/8e1e9f54-ce46-4fb3-bc29-e8d01fa6523d" width="250">
 
 ### App Video
 
